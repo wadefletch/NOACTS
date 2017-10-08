@@ -4,7 +4,6 @@ from .forms import *
 import csv
 import os
 import json
-import md5
 
 @main.route('/')
 def index():
