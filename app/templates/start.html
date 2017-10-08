@@ -24,6 +24,17 @@
         <div class="field">
             {{ form.role.label }}{{ form.role() }}
         </div>
+            {% if form.admonition.errors %}
+                {% for error in form.admonition.errors %}
+                    <div class="ui negative message">
+                        <i class="close icon"></i>
+                        <p>{{ error }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        <div class="field">
+            {{ form.admonition.label }}{{ form.admonition() }}
+        </div>
         <button class="ui button" type="submit">Submit</button>
     </form>
 {% endblock %}
