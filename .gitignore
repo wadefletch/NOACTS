@@ -49,6 +49,8 @@ crashlytics-build.properties
 fabric.properties
 
 *.pyc
-idea/*
+app/.idea
+.idea
+.idea/*
 .DS_Store
 app/.DS_Store
