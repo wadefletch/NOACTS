@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Start{% endblock %}
+
+{% block content %}
+    <img id="start-background" class="ui giant rounded image" src="{{ url_for('static', filename='team.jpg') }}">
+    <form class="ui segment form" method="POST" id="start-form">
+        <div class="ui header">Configure</div>
+        <!-- <div class="field">
+            <div class="ui simple selection dropdown">
+                <input type="hidden" name="your_parameter_name_here">
+                <i class="dropdown icon"></i>
+                <div class="default text">Ceremony</div>
+                <div class="menu">
+                    {{ form.script() }}
+                    <div class="item" data-value="pre">Pre-Ordeal</div>
+                </div>
+            </div>
+        </div> -->
+        {{ form.csrf_token }}
+        <div class="field">
+            {{ form.script.label }}{{ form.script() }}
+        </div>
+        <div class="field">
+            {{ form.role.label }}{{ form.role() }}
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}ScriptReader{% endblock %}
+
+{% block head %}
+<script>
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+console.log($SCRIPT_ROOT);
+$(document).ready(function() {
+    console.log('ready!');
+    $('body').addClass('noscroll');
+    $("#nextsubmit").prop("type", "button");
+    var count = 0;
+    var audio_count = 1;
+    var principal = '';
+    var raw_line = '';
+    var placeholderText = 'Enter your line below...';
+    var is_first = true;
+    var playing = false;
+    $("#nextsubmit").click(function () {
+        line = $.get("{{ url_for('main.line', index=index) }}" + count.toString(), function (data) {
+            principal = JSON.parse(line.responseText)[0];
+            raw_line = JSON.parse(line.responseText)[1];
+            color = JSON.parse(line.responseText)[2];
+            count++;
+        });
+        $('#out-lines').append("<div id='" + count + "' class='ui "+color+" segment' style='margin-top: 10px; display: none;'><span class='ui header'>" + principal + "</span><br><span id='line-text'>" + raw_line + "</span></div>");
+        $('#' + count.toString()).fadeIn(500);
+        if (count > 4) {
+            newCount = count - 4;
+            divToRemove = '#' + newCount.toString();
+            $(divToRemove.toString()).slideUp(500);
+        }
+        if (principal === '{{ session['role'] }}') {
+            console.log('match!');
+            audio_count++;
+            $('#line-entry').removeClass('disabled');
+            $('#' + count + ' > #line-text').text('Enter your line below...');
+            $('#nextsubmit').attr('disabled', 'disabled')
+            $('#line-entry').keyup(function () {
+                console.log($('#line').val());
+                if ($('#line').val() === last_line) {
+                    $('#nextsubmit').removeAttr('disabled');
+                    $('#' + count + ' > #line-text').text('Test');
+                }
+            })
+        } else {
+            $('#line-entry').addClass('disabled');
+            var audioElement = $('#myAudio')[0];
+            audioElement.setAttribute('src', Flask.url_for("static", {'filename': audio_count.toString()+".mp3"}));
+            audioElement.play();
+            $('#nextsubmit').attr('disabled', 'disabled')
+        }
+        last_line = raw_line
+    });
+    $('#myAudio').on('ended', function() {
+        $('#nextsubmit').removeAttr('disabled');
+        audio_count++;
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+    <div id="reader">
+        <audio id='myAudio' autoplay='autoplay'></audio>
+        <div id="out-lines">
+
+        </div>
+        <form style="margin: 10px; position:fixed; bottom:20px; width:80%;" class="ui form" method="POST">
+            {{ form.csrf_token }}
+            <div class="fields">
+                <div class="sixteen wide disabled field" id="line-entry">
+                    {{ form.line(placeholder="Type your line here...", id="line") }}
+                </div>
+            <div class="two wide field">
+                <button id="nextsubmit" class="ui red button" type="submit">Next</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% from 'macros.html' import nav_link %}
+
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+          content="[[ PUT A DESCRIPTION OF THE SITE HERE! ]]">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js"></script>
+    <script src="{{ url_for('static', filename='base.js') }}"></script>
+    <script>
+        // [[ PASTE YOUR GOOGLE ANALYTICS CODE HERE ]]
+
+
+    </script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css">
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <title>{% block title %}{% endblock %} - {{ config['NAME'] }}</title>
+    {{ JSGlue.include() }}
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<nav id="menu" class="ui {{ config['COLOR'] }} inverted stackable menu">
+    <a class="header item" href="{{ url_for('main.index') }}">{{ config['NAME'] }}</a>
+    {{ nav_link("main.start", "Start") }}
+</nav>
+<div class="ui container">
+    <span id="spacer"></span>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="ui message">
+        <p>{{ message }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+<footer><span style="text-align: center;">Built at the inaugural OA Hackathon in 2017 by Wade Fletcher, Jason Scruggs, Jared Jenkins, and Matthew Jenkins.</span></footer>
+</html>

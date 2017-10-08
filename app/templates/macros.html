@@ -1,0 +1,9 @@
+{% macro nav_link(endpoint, text) %}
+    {% if request.endpoint -%}
+        {% if request.endpoint.endswith(endpoint) -%}
+            <a class="active {{ config['COLOR'] }} item" href="{{ url_for(endpoint) }}">{{text|safe}}</a>
+        {% else -%}
+            <a class="{{ config['COLOR'] }} item" href="{{ url_for(endpoint) }}">{{text|safe}}</a>
+        {% endif -%}
+    {% endif -%}
+{% endmacro %}
