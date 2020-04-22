@@ -1,5 +1,10 @@
 # National OA Ceremonies Training System
-Ceremonies are hard. It's not uncommon for you, (the ceremonies adviser,) to get a call driving to a fellowship. "I can't make it" says Allowat Sakima. You hand another arrowman the script binder and he tries his best to memorize the script before sundown. Sounds familiar, doesn't it? NOACTS is the premier training platform for Ceremonialists across the country.
+
+# What in the world is the OA?
+The [Order of the Arrow](https://en.wikipedia.org/wiki/Order_of_the_Arrow) is Scouting's National Honor Society. Basically Boy Scouts that might be a little too into it. Anyway...
+
+# Pitch
+Ceremonies are hard. If you're a ceremonies adviser, it's not uncommon to get this call driving to a fellowship: "I can't make it" says Allowat Sakima. You hand another arrowman the script binder and he tries his best to memorize the script before sundown. Sounds familiar, doesn't it? NOACTS is the premier training platform for Ceremonialists across the country.
 
 # Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
